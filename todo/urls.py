@@ -18,7 +18,7 @@ from django.urls import path
 from app import views
 
 urlpatterns = [
-    path('', views.todo_lists, name='todo_lists'),
-    path('completed', views.completed_todo_lists, name='completed_todo_lists'),
+    path('todos/<int:pk>/', views.todo_lists, name='todo_lists'),
+    path('todos/<int:pk>/completed', views.completed_todo_lists, name='completed_todo_lists'),
     path('admin/', admin.site.urls),
 ]

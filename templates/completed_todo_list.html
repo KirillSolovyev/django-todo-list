@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
     {% block title %} Unchecked todo list {% endblock %}
     {% block content %}
-        <h2>Completed tasks in "List 1"</h2>
+        <h2>Tasks in "{{ list.name }}"</h2>
         <button type="button" class="btn btn-primary">Add Task</button>
         <table class="table">
             <thead class="thead-inverse">
@@ -14,27 +14,33 @@
                 </tr>
             </thead>
             <tbody>
-                {% for todo in todos %}
+                {% for task in tasks %}
                     <tr>
                         <td>
-                            {{ todo.name }}
+                            {{ task.name }}
                         </td>
                         <td>
-                            {{ todo.created }}
+                            {{ task.created }}
                         </td>
                         <td>
-                            {{ todo.due_on }}
+                            {{ task.due }}
                         </td>
                         <td>
-                            {{ todo.owner }}
+                            {{ task.user }}
                         </td>
                         <td>
-                            <button class="btn btn-info">{{ todo.status }}</button>
+                            <button class="btn btn-info">
+                                {% if task.completed %}
+                                    Done
+                                {% else %}
+                                    Active
+                                {% endif %}
+                            </button>
                         </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <a class="btn btn-warning" href="{% url 'todo_lists' %}">View uncompleted tasks</a>
+        <a class="btn btn-warning" href="{% url 'todo_lists' list.id %}">View uncompleted tasks</a>
         <button class="btn btn-danger">Delete list</button>
     {% endblock %}
